@@ -6,8 +6,7 @@ download() {
 }
 
 script=$(basename "$0")
-server="${script%.*}"
-config="./$server.conf"
+config="./$script.conf"
 
 if [ ! -f "$config" ]
 then
