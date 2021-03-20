@@ -1,9 +1,5 @@
 #!/bin/sh
 
-download() {
-  download_result=$(wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -2 | head -1)
-  echo "$download_result"
-}
 server=paper
 version=1.16.5
 plugins=(
@@ -18,15 +14,13 @@ mkdir -p "$server_folder"
 
 cd "$server_folder"
 
-download_result=$(download "https://raw.githubusercontent.com/monun/server-script/master/$server.sh" .)
-server_script=$(grep -oG "‘.*’" <<< $download_result)
-server_script="${server_script:1:-1}"
+server_script="$server.sh"
+server_config="$server_script.conf"
+wget -qc -N "https://raw.githubusercontent.com/monun/server-script/master/$server_script"
 
-config="./$server_script.conf"
-
-if [ ! -f "$config" ]
+if [ ! -f "$server_config" ]
 then
-    cat << EOF > $config
+    cat << EOF > $server_config
 jar_url="https://papermc.io/api/v1/paper/$version/latest/download"
 debug=false
 debug_port=5005
@@ -37,9 +31,9 @@ plugins=(
 EOF
     for plugin in "${plugins[@]}"
     do
-        echo "  \"$plugin\"" >> $config
+        echo "  \"$plugin\"" >> $server_config
     done
-    echo ")" >> $config
+    echo ")" >> $server_config
 fi
 
 chmod +x ./$server_script
