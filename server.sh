@@ -3,9 +3,9 @@
 server=paper
 version=1.16.5
 plugins=(
-    "A"
-    "B"
-    "C"
+    'https://github.com/monun/kotlin-plugin/releases/latest/download/Kotlin-1.4.31.jar'
+    'https://github.com/monun/auto-update/releases/latest/download/AutoUpdate.jar'
+    'https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/target/ProtocolLib.jar'
 )
 
 script=$(basename "$0")
