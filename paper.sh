@@ -70,7 +70,7 @@ jvm_arguments=(
 
 if (($memory < 12))
 then
-  echo "Use Aikar's standard memory options"
+  echo "Use Aikar\'s standard memory options"
   jvm_arguments+=(
     "-XX:G1NewSizePercent=30"
     "-XX:G1MaxNewSizePercent=40"
@@ -79,7 +79,7 @@ then
     "-XX:InitiatingHeapOccupancyPercent=15"
  )
 else
-  echo "Use Aikar's Advanced memory options"
+  echo "Use Aikar\'s Advanced memory options"
   jvm_arguments+=(
     "-XX:G1NewSizePercent=40"
     "-XX:G1MaxNewSizePercent=50"
