@@ -6,11 +6,11 @@ download() {
 }
 
 script=$(basename "$0")
-config="./$script.conf"
+script_config="./$script.conf"
 
-if [ ! -f "$config" ]
+if [ ! -f "$script_config" ]
 then
-    cat << EOT > $config
+    cat << EOT > $script_config
 jar_url="https://papermc.io/api/v1/paper/1.16.5/latest/download"
 debug=false
 debug_port=5005
@@ -25,7 +25,7 @@ plugins=(
 EOT
 fi
 
-source "$config"
+source "$script_config"
 
 # Print configurations
 echo "debug = $debug"
