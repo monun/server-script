@@ -1,5 +1,10 @@
 #!/bin/sh
 
+download() {
+  download_result=$(wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -2 | head -1)
+  echo "$download_result"
+}
+
 server=paper
 version=1.16.5
 plugins=(
@@ -14,9 +19,11 @@ mkdir -p "$server_folder"
 
 cd "$server_folder"
 
-wget "https://raw.githubusercontent.com/monun/server-script/master/$server.sh"
+download_result=$(download "https://raw.githubusercontent.com/monun/server-script/master/$server.sh" .)
+server_script=$(grep -oG "‘.*’" <<< $download_result)
+server_script="${server_script:1:-1}"
 
-config="./$server.conf"
+config="./$server_script.conf"
 
 if [ ! -f "$config" ]
 then
@@ -36,4 +43,5 @@ EOF
     echo ")" >> $config
 fi
 
-./$server.sh
+chmod +x ./$server_script
+./$server_script
