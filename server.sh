@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 server=paper
 version=1.16.5

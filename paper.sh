@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 download() {
   download_result=$(wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -2 | head -1)
