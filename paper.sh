@@ -106,7 +106,7 @@ do
 
   if ($backup)
   then
-    read -r -t 5 -p "Press Enter to start the backup immediately `echo $'\n> '`"
+    read -r -t 5 -p "Press Enter to start the backup immediately or Ctrl+C to cancel `echo $'\n> '`"
     echo 'Start the backup.'
     backup_file_name=$(date +"%y%m%d-%H%M%S")
     mkdir -p '.backup'
@@ -120,4 +120,6 @@ do
   fi
 
   read -r -t 5 -p "The server restarts. Press Enter to start immediately or Ctrl+C to cancel `echo $'\n> '`"
+  
+  echo "The server will be restarted."
 done
