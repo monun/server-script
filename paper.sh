@@ -2,7 +2,7 @@
 
 download() {
   download_result=$(wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -2 | head -1)
-  echo "$download_result"
+  echo "$download_result" | sed -r "s/\`/'/g" # Replace "`" to "'". It Interrupts strings.
 }
 
 script=$(basename "$0")
@@ -38,8 +38,9 @@ mkdir -p "$HOME/.minecraft/servers"
 
 # Download jar
 jar_result=$(download "$jar_url" "$HOME/.minecraft/servers")
-jar=$(grep -oG "‘.*’" <<< $jar_result)
-jar="${jar:1:-1}"
+jar=$(grep -oG "'.*'" <<< $jar_result) # Use "'" instead of "`" 
+jar=${jar#"'"} # Remove "'" from prefix
+jar=${jar%"'"} # Remove "'" from suffix
 echo "$jar_result"
 
 # Download plugins
