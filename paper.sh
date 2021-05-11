@@ -1,8 +1,7 @@
 #!/bin/bash
 
 download() {
-  download_result=$(wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -2 | head -1)
-  echo "$download_result"
+  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -2 | head -1
 }
 
 script=$(basename "$0")
@@ -33,14 +32,14 @@ echo "backup = $backup"
 echo "restart = $restart"
 echo "memory = ${memory}G"
 
+jar_folder="$HOME/.minecraft/server/paper"
+
 mkdir -p "./plugins"
-mkdir -p "$HOME/.minecraft/servers"
+mkdir -p "$jar_folder"
 
 # Download jar
-jar_result=$(download "$jar_url" "$HOME/.minecraft/servers")
-jar=$(grep -oG "‘.*’" <<< $jar_result)
-jar="${jar:1:-1}"
-echo "$jar_result"
+download "$jar_url" "$jar_folder"
+jar=$(ls -d $HOME/.minecraft/server/paper/*.jar -t | head -1)
 
 # Download plugins
 for i in "${plugins[@]}"
