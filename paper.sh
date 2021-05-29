@@ -39,7 +39,7 @@ mkdir -p "$jar_folder"
 
 # Download jar
 download "$jar_url" "$jar_folder"
-jar=$(ls -d $HOME/.minecraft/server/paper/*.jar -t | head -1)
+jar=$(ls -dt $HOME/.minecraft/server/paper/*.jar | head -1)
 
 # Download plugins
 for i in "${plugins[@]}"
