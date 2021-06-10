@@ -4,6 +4,18 @@ download() {
   wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -2 | head -1
 }
 
+# check java (https://stackoverflow.com/questions/7334754/correct-way-to-check-java-version-from-bash-script)
+if type -p java; then
+    echo "Found java executable in PATH"
+    _java=java
+elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then
+    echo "Found java executable in JAVA_HOME"
+    _java="$JAVA_HOME/bin/java"
+else
+    echo "Not found java"
+    exit
+fi
+
 script=$(basename "$0")
 script_config="./$script.conf"
 
@@ -90,7 +102,19 @@ fi
 
 if ($debug)
 then
-  jvm_arguments+=("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:$debug_port")
+  port_arguments="$debug_port"
+
+  java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+  java_version_9="9"
+
+  if [ "$(printf '%s\n' "$java_version" "$java_version_9" | sort -V | head -n1)" = "$java_version_9" ]; then
+    echo "DEBUG MODE: JDK9+"
+    port_arguments="*:$port_arguments"
+  else
+    echo "DEBUG MODE: JDK8"
+  fi
+
+  jvm_arguments+=("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=$port_arguments")
 fi
 
 jvm_arguments+=(
@@ -101,7 +125,7 @@ jvm_arguments+=(
 
 while :
 do
-  java "${jvm_arguments[@]}"
+  "$_java" "${jvm_arguments[@]}"
 
   if ($backup)
   then
