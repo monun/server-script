@@ -1,7 +1,7 @@
 #!/bin/bash
 
 download() {
-  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '(?<=‘).+(?=’)' | /dev/null
+  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '(?<=‘).+(?=’)' | tail -1
 }
 
 # check java (https://stackoverflow.com/questions/7334754/correct-way-to-check-java-version-from-bash-script)
@@ -21,13 +21,12 @@ script_config="./$script.conf"
 
 if [ ! -f "$script_config" ]; then
   cat << EOT > $script_config
-server=https://papermc.io/api/v1/paper/1.16.5/latest/download
-#server=https://ci.codemc.io/job/Spottedleaf/job/Tuinity/lastSuccessfulBuild/artifact/tuinity-paperclip.jar
 debug=false
 debug_port=5005
 backup=true
 restart=true
 memory=16
+server=https://papermc.io/api/v1/paper/1.16.5/latest/download
 plugins=(
     'https://github.com/monun/kotlin-plugin/releases/latest/download/Kotlin-1.5.10.jar'
 )
@@ -110,8 +109,6 @@ else
     "-XX:InitiatingHeapOccupancyPercent=20"
   )
 fi
-
-echo "$debug"
 
 if [[ $debug = true ]]; then
   port_arguments="$debug_port"
