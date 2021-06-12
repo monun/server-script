@@ -1,2 +1,6 @@
 # Intellij
 .idea/
+
+# Servers
+.paper/
+.tuinity/

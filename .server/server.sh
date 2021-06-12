@@ -1,7 +1,7 @@
 #!/bin/bash
 
 download() {
-  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | tail -2 | head -1
+  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '(?<=‘).+(?=’)'
 }
 
 # check java (https://stackoverflow.com/questions/7334754/correct-way-to-check-java-version-from-bash-script)
@@ -19,10 +19,10 @@ fi
 script=$(basename "$0")
 script_config="./$script.conf"
 
-if [ ! -f "$script_config" ]
-then
-    cat << EOT > $script_config
-version=1.16.5
+if [ ! -f "$script_config" ]; then
+  cat << EOT > $script_config
+server=https://papermc.io/api/v1/paper/1.16.5/latest/download
+#server=https://ci.codemc.io/job/Spottedleaf/job/Tuinity/lastSuccessfulBuild/artifact/tuinity-paperclip.jar
 debug=false
 debug_port=5005
 backup=true
@@ -37,24 +37,37 @@ fi
 source "$script_config"
 
 # Print configurations
-echo "version = $version"
+echo "server = $server"
 echo "debug = $debug"
 echo "backup = $backup"
 echo "restart = $restart"
 echo "memory = ${memory}G"
 
-jar_folder="$HOME/.minecraft/server/paper/$version"
-
 mkdir -p "./plugins"
-mkdir -p "$jar_folder"
-# Download jar
-download "https://papermc.io/api/v1/paper/$version/latest/download" "$jar_folder"
-jar=$(ls -dt $jar_folder/*.jar | head -1)
+
+
+if [ "$server" = "." ]; then
+  jar=$(ls -dt ./*.jar | head -1)
+elif [ -f "$server" ]; then
+  jar=$server
+else
+  url_regex='(https?)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+  if [[ $server =~ $url_regex ]]; then
+    jar_folder="$HOME/.minecraft/server/"
+    mkdir -p "$jar_folder"
+    jar=$(download "$server" "$jar_folder")
+  else
+    echo "Not found server jar"
+    exit
+  fi
+fi
+
+echo "server = $jar"
 
 # Download plugins
-for i in "${plugins[@]}"
-do
-  download "$i" "./plugins"
+for i in "${plugins[@]}"; do
+  download_result=$(download "$i" "./plugins")
+  echo "$download_result <- $i"
 done
 
 jvm_arguments=(
@@ -77,7 +90,7 @@ jvm_arguments=(
   "-Dcom.mojang.eula.agree=true"
 )
 
-if (($memory < 12))
+if [[ $memory -lt 12 ]]
 then
   echo "Use Aikar's standard memory options"
   jvm_arguments+=(
@@ -98,8 +111,7 @@ else
   )
 fi
 
-if ($debug)
-then
+if [[ $debug ]]; then
   port_arguments="$debug_port"
 
   java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
@@ -124,8 +136,7 @@ while :
 do
   "$_java" "${jvm_arguments[@]}"
 
-  if ($backup)
-  then
+  if [[ $backup ]]; then
     read -r -t 5 -p "Press Enter to start the backup immediately or Ctrl+C to cancel `echo $'\n> '`"
     echo 'Start the backup.'
     backup_file_name=$(date +"%y%m%d-%H%M%S")
@@ -134,12 +145,10 @@ do
     echo 'The backup is complete.'
   fi
 
-  if (! ($restart))
-  then
+  if [[ $restart = "false" ]]; then
     break
   fi
 
   read -r -t 5 -p "The server restarts. Press Enter to start immediately or Ctrl+C to cancel `echo $'\n> '`"
-  
   echo "The server will be restarted."
 done
