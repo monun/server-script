@@ -17,7 +17,7 @@ if [ ! -f "$server_folder/$server_script" ]; then
   if [ -f ".server/$server_script" ]; then
     cp ".server/$server_script" "$server_folder/$server_script"
   else
-    wget -qc -N 'https://raw.githubusercontent.com/monun/server-script/master/.server/server.sh'
+    wget -qc -P "$server_folder" -N 'https://raw.githubusercontent.com/monun/server-script/master/.server/server.sh'
   fi
 fi
 
