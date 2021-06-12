@@ -62,7 +62,7 @@ else
   fi
 fi
 
-echo "server = $jar"
+echo "jar = $jar"
 
 # Download plugins
 for i in "${plugins[@]}"; do
