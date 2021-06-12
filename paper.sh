@@ -9,14 +9,20 @@ plugins=(
 script=$(basename "$0")
 server_folder=".${script%.*}"
 mkdir -p "$server_folder"
-cd "$server_folder"
 
 server_script="server.sh"
 server_config="server.sh.conf"
 
-if [ ! -f "$server_script" ]; then
-  wget -qc -N 'https://raw.githubusercontent.com/monun/server-script/master/.server/server.sh'
+if [ ! -f "$server_folder/$server_script" ]; then
+  if [ -f ".server/$server_script" ]; then
+    cp ".server/$server_script" "$server_folder/$server_script"
+  else
+    wget -qc -N 'https://raw.githubusercontent.com/monun/server-script/master/.server/server.sh'
+  fi
 fi
+
+
+cd "$server_folder"
 
 if [ ! -f "$server_config" ]; then
     cat << EOF > $server_config

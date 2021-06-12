@@ -1,7 +1,7 @@
 #!/bin/bash
 
 download() {
-  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '(?<=‘).+(?=’)'
+  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '(?<=‘).+(?=’)' | /dev/null
 }
 
 # check java (https://stackoverflow.com/questions/7334754/correct-way-to-check-java-version-from-bash-script)
@@ -111,7 +111,9 @@ else
   )
 fi
 
-if [[ $debug ]]; then
+echo "$debug"
+
+if [[ $debug = true ]]; then
   port_arguments="$debug_port"
 
   java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
@@ -136,7 +138,7 @@ while :
 do
   "$_java" "${jvm_arguments[@]}"
 
-  if [[ $backup ]]; then
+  if [[ $backup = true ]]; then
     read -r -t 5 -p "Press Enter to start the backup immediately or Ctrl+C to cancel `echo $'\n> '`"
     echo 'Start the backup.'
     backup_file_name=$(date +"%y%m%d-%H%M%S")
