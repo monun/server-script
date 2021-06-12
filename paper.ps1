@@ -169,7 +169,6 @@ if ($debug) {
 
 $jvm_arguments.Add("-jar") | Out-Null
 $jvm_arguments.Add("$HOME\.minecraft\servers\paper.jar") | Out-Null
-$jvm_arguments.Add("--nogui") | Out-Null
 
 while($true) {
     java $jvm_arguments
