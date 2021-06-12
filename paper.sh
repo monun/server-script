@@ -21,7 +21,6 @@ if [ ! -f "$server_folder/$server_script" ]; then
   fi
 fi
 
-
 cd "$server_folder"
 
 if [ ! -f "$server_config" ]; then
