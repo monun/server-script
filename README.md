@@ -2,11 +2,11 @@
 
 간단하지만 환경은 간단하지 않습니다.
 윈도우 유저분들은 WSL을 사용하세요.
----
-환경
+
+### 환경
 * JAVA
 * LINUX (shell)
-
+---
 > ## 사용방법 (아래 방법중 하나를 선택하세요)
 > ### - server.sh (기본)
 > 1. .server/server.sh 파일을 다운로드 `wget https://raw.githubusercontent.com/monun/server-script/master/.server/server.sh`
