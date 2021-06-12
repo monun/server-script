@@ -118,7 +118,6 @@ fi
 jvm_arguments+=(
   "-jar"
   "$jar"
-  "--nogui"
 )
 
 while :
