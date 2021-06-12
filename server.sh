@@ -19,7 +19,7 @@ wget -qc -N "https://raw.githubusercontent.com/monun/server-script/master/$serve
 if [ ! -f "$server_config" ]
 then
     cat << EOF > $server_config
-jar_url="https://papermc.io/api/v1/paper/$version/latest/download"
+version=$version
 debug=false
 debug_port=5005
 backup=true

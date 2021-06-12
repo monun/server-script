@@ -22,16 +22,14 @@ script_config="./$script.conf"
 if [ ! -f "$script_config" ]
 then
     cat << EOT > $script_config
-jar_url="https://papermc.io/api/v1/paper/1.16.5/latest/download"
+version=1.16.5
 debug=false
 debug_port=5005
 backup=true
 restart=true
-memory=8
+memory=16
 plugins=(
-    'https://github.com/monun/kotlin-plugin/releases/latest/download/Kotlin-1.4.32.jar'
-    'https://github.com/monun/auto-update/releases/latest/download/AutoUpdate.jar'
-    'https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/target/ProtocolLib.jar'
+    'https://github.com/monun/kotlin-plugin/releases/latest/download/Kotlin-1.5.10.jar'
 )
 EOT
 fi
@@ -39,19 +37,19 @@ fi
 source "$script_config"
 
 # Print configurations
+echo "version = $version"
 echo "debug = $debug"
 echo "backup = $backup"
 echo "restart = $restart"
 echo "memory = ${memory}G"
 
-jar_folder="$HOME/.minecraft/server/paper"
+jar_folder="$HOME/.minecraft/server/paper/$version"
 
 mkdir -p "./plugins"
 mkdir -p "$jar_folder"
-
 # Download jar
-download "$jar_url" "$jar_folder"
-jar=$(ls -dt $HOME/.minecraft/server/paper/*.jar | head -1)
+download "https://papermc.io/api/v1/paper/$version/latest/download" "$jar_folder"
+jar=$(ls -dt $jar_folder/*.jar | head -1)
 
 # Download plugins
 for i in "${plugins[@]}"
