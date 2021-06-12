@@ -21,7 +21,6 @@ fi
 if [ ! -f "$server_config" ]; then
     cat << EOF > $server_config
 server=$server
-#server=
 debug=false
 debug_port=5005
 backup=true
