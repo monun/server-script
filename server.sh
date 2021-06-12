@@ -15,7 +15,7 @@ cd "$server_folder"
 
 server_script="$server.sh"
 server_config="$server_script.conf"
-wget -qc -N "https://raw.githubusercontent.com/monun/server-script/master/$server_script"
+wget -qc -N "https://raw.githubusercontent.com/monun/server-script/master/paper/$server_script"
 
 if [ ! -f "$server_config" ]
 then
