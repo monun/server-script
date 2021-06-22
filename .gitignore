@@ -4,3 +4,7 @@
 # Servers
 .paper/
 .tuinity/
+
+# go summary file
+go.sum
+build/
