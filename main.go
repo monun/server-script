@@ -183,6 +183,7 @@ func downloadFile(downloadType, downloadDir, url string, err chan<- downloadResu
 
 	client := grab.NewClient()
 	req, _ := grab.NewRequest(downloadDir, url)
+	req.NoResume = true
 	resp := client.Do(req)
 
 	t := time.NewTicker(time.Second)
