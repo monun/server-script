@@ -65,7 +65,7 @@ func runner() {
 
 		backupCanceled := false
 
-		fmt.Println("Server back-up will start in 5 seconds. Press Ctrl+C to cancel")
+		logger.Info("Server back-up will start in 5 seconds. Press Ctrl+C to cancel")
 		fmt.Print("> ")
 		ctrlCKeyEvent := make(chan os.Signal, 1)
 		signal.Notify(ctrlCKeyEvent, os.Interrupt)
