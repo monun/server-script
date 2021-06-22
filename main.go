@@ -118,6 +118,9 @@ func runner() {
 			logger.Info("Starting Server...")
 		}
 		ctrlCValid = false
+	} else {
+		logger.Info("Exiting...")
+		os.Exit(0)
 	}
 	if !utils.NormalStatusExit {
 		logger.Fatal("There was an error while running server. If you didn't stop the process manually, Try to check 'server.conf.json'")
