@@ -11,7 +11,7 @@
 
 ## 사용방법 (아래 방법중 하나를 선택하세요)
 
-### - server(.exe) (기본)
+### - server (기본)
 
 1. [Release 탭](https://github.com/monun/server-script/releases) 에서 자신의 환경에 맞는 파일을 다운로드
 2. 실행권한 부여 `chmod +x ./server`
