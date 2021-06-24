@@ -1,7 +1,7 @@
 #!/bin/bash
 
 download() {
-  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '(?<=‘).+(?=’)' | tail -1
+  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '[\/\.\-\w]+\.jar' | tail -1
 }
 
 # check java (https://stackoverflow.com/questions/7334754/correct-way-to-check-java-version-from-bash-script)
@@ -26,7 +26,7 @@ debug_port=5005
 backup=true
 restart=true
 memory=16
-server=https://papermc.io/api/v1/paper/1.16.5/latest/download
+server=https://papermc.io/api/v1/paper/1.17/latest/download
 plugins=(
     'https://github.com/monun/kotlin-plugin/releases/latest/download/Kotlin-1.5.10.jar'
 )
