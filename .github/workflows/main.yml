@@ -201,7 +201,7 @@ jobs:
           name: Zipped Build for Windows x86
 
       - name: Set Version
-        run: echo "::set-output name=version::$(echo ${{ github.sha }} | cat -c -6)"
+        run: echo "::set-output name=version::$(echo ${{ github.sha }} | cut -c -6)"
         id: version
 
       - uses: actions/create-release@v1
