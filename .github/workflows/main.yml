@@ -200,17 +200,17 @@ jobs:
         with:
           name: Zipped Build for Windows x86
 
-      - name: Set version
-        id: vars
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Set Version
+        run: echo "::set-output name=version::$(echo ${{ github.sha }} | cat -c -6)"
+        id: version
 
       - uses: actions/create-release@v1
         id: create_release
         with:
           draft: false
           prerelease: false
-          release_name: Release ${{ steps.vars.outputs.sha_short }}
-          tag_name: ${{ steps.vars.outputs.sha_short }}
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
