@@ -9,7 +9,9 @@ import (
 	"monun/server-script/utils/logger"
 	"os"
 	"os/signal"
+	"runtime"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/cavaliercoder/grab"
@@ -62,23 +64,24 @@ func runner() {
 
 	if configContent.Backup {
 		ctrlCValid := true
+		done := make(chan bool, 1)
 
 		backupCanceled := false
 
 		logger.Info("Server back-up will start in 5 seconds. Press Ctrl+C to cancel")
 		fmt.Print("> ")
 		ctrlCKeyEvent := make(chan os.Signal, 1)
-		signal.Notify(ctrlCKeyEvent, os.Interrupt)
+		signal.Notify(ctrlCKeyEvent, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
 
 		go func() {
-			for range ctrlCKeyEvent {
-				if ctrlCValid {
-					ctrlCValid = false
-					backupCanceled = true
-					fmt.Print("\n")
-					logger.Warn("Server backup canceled.")
-					return
-				}
+			sig := <-ctrlCKeyEvent
+			if ctrlCValid && (sig == syscall.SIGINT || sig == syscall.SIGTERM || sig == os.Interrupt) {
+				ctrlCValid = false
+				backupCanceled = true
+				fmt.Print("\n")
+				logger.Warn("Server backup canceled.")
+				done <- true
+				return
 			}
 		}()
 		select {
@@ -95,19 +98,21 @@ func runner() {
 
 	if configContent.Restart {
 		ctrlCValid := true
+		done := make(chan bool, 1)
+
 		logger.Info("Server will restarts in 5 seconds. Press Ctrl+C to cancel")
 		fmt.Print("> ")
 		ctrlCKeyEvent := make(chan os.Signal, 1)
-		signal.Notify(ctrlCKeyEvent, os.Interrupt)
+		signal.Notify(ctrlCKeyEvent, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
 
 		go func() {
-			for range ctrlCKeyEvent {
-				if ctrlCValid {
-					ctrlCValid = false
-					fmt.Print("\n")
-					logger.Info("Exiting...")
-					os.Exit(0)
-				}
+			sig := <-ctrlCKeyEvent
+			if ctrlCValid && (sig == syscall.SIGINT || sig == syscall.SIGTERM || sig == os.Interrupt) {
+				ctrlCValid = false
+				fmt.Print("\n")
+				logger.Info("Exiting...")
+				done <- true
+				os.Exit(0)
 			}
 		}()
 
@@ -202,13 +207,17 @@ Loop:
 			currentDownloaded := file.ByteCounter(resp.BytesComplete())
 			totalDownloaded := file.ByteCounter(resp.Size)
 
-			jarPath := strings.Split(resp.Filename, "/")
+			var jarPath []string
+			if runtime.GOOS == "windows" {
+				jarPath = strings.Split(resp.Filename, "\\")
+			} else {
+				jarPath = strings.Split(resp.Filename, "/")
+			}
 			logger.Info(fmt.Sprintf("[%s] Downloaded %s of %s | ETA: %s | Download Speed: %s/s", jarPath[len(jarPath)-1], currentDownloaded,
 				totalDownloaded,
 				etaTime,
 				downloadSpeed))
 
-			// eta.SetText(fmt.Sprintf("남은 시간: %s | 다운로드 현황: %s/%s | 전송 속도: %s/s", etaTime, currentDownloaded, totalDownloaded, downloadSpeed))
 		case <-resp.Done:
 			break Loop
 		}
