@@ -134,18 +134,13 @@ jobs:
         run: echo "::set-output name=release_name::$(printf "Release %s" "${{ steps.version.outputs.version }} | cut -c -14")"
         id: release_name
 
-      - name: Set Changelog
-        run: echo "::set-output name=change_log::$(curl https://raw.githubusercontent.com/aroxu/server-script/master/CHANGELOG.md)"
-        id: change_log
-
       - uses: actions/create-release@v1
         id: create_release
         with:
           draft: false
           prerelease: false
-          release_name: ${{ steps.version.outputs.release_title }}
+          release_name: ${{ steps.version.outputs.release_name }}
           tag_name: ${{ steps.version.outputs.version }}
-          body: ${{ steps.version.outputs.change_log }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
