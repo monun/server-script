@@ -204,17 +204,22 @@ jobs:
         run: echo "::set-output name=version::$(echo ${{ github.sha }} | cut -c -6)"
         id: version
 
-      - name: Get Changelog
-        run: wget https://raw.githubusercontent.com/aroxu/server-script/master/CHANGELOG.md
+      - name: Set Release Name
+        run: echo "::set-output name=release_name::$(echo 'Release ${{ github.sha }}' | cut -c -14)"
+        id: release_name
+
+      - name: Set Changelog
+        run: echo "::set-output name=change_log::$(curl https://raw.githubusercontent.com/aroxu/server-script/master/CHANGELOG.md)"
+        id: change_log
 
       - uses: actions/create-release@v1
         id: create_release
         with:
           draft: false
           prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
+          release_name: ${{ steps.version.outputs.release_title }}
           tag_name: ${{ steps.version.outputs.version }}
-          body_path: CHANGELOG.md
+          body: ${{ steps.version.outputs.change_log }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
