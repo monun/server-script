@@ -204,6 +204,9 @@ jobs:
         run: echo "::set-output name=version::$(echo ${{ github.sha }} | cut -c -6)"
         id: version
 
+      - name: Get Changelog
+        run: wget https://raw.githubusercontent.com/aroxu/server-script/master/CHANGELOG.md
+
       - uses: actions/create-release@v1
         id: create_release
         with:
