@@ -131,7 +131,7 @@ jobs:
         id: version
 
       - name: Set Release Name
-        run: echo "::set-output name=version::$(echo ${{ github.sha }} | cut -c -6)"
+        run: echo "::set-output name=release_name::$(echo ${{ github.sha }} | cut -c -6)"
         id: release_name
 
       - uses: actions/create-release@v1
