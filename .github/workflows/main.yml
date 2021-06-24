@@ -155,11 +155,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [zip]
     steps:
-      - uses: actions/checkout@v2
-      - name: Create Release
-        uses: Roang-zero1/github-create-release-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/download-artifact@master
         with:
           name: Zipped Build for Darwin
