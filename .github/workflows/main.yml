@@ -111,6 +111,9 @@ jobs:
         with:
           name: Build for Windows x86
 
+      - name: Check Files
+        run: ls -al . && ls -al build/
+
       - name: Zip Build file for Darwin
         run: zip build/server_darwin_x64.zip build/server_darwin_x64
 
