@@ -9,7 +9,7 @@
 
 ---
 
-[![Build & Publish to Release](https://github.com/aroxu/server-script/actions/workflows/main.yml/badge.svg)](https://github.com/aroxu/server-script/actions/workflows/main.yml)
+[![Build & Publish to Release](https://github.com/monun/server-script/actions/workflows/main.yml/badge.svg)](https://github.com/monun/server-script/actions/workflows/main.yml)
 
 ## 사용방법 (아래 방법중 하나를 선택하세요)
 
