@@ -26,31 +26,31 @@ jobs:
         run: GOOS=darwin GOARCH=amd64 go build -o build/server_darwin_x64
 
       - name: Zip Build file for Darwin
-        run: zip server_darwin_x64.zip server_darwin_x64
+        run: zip server_darwin_x64.zip build/server_darwin_x64
 
       - name: Build for Linux x64
         run: GOOS=linux GOARCH=amd64 go build -o build/server_linux_x64
 
       - name: Zip Build file for Linux x64
-        run: zip server_linux_x64.zip server_linux_x64
+        run: zip server_linux_x64.zip build/server_linux_x64
 
       - name: Build for Linux x86
         run: GOOS=linux GOARCH=386 go build -o build/server_linux_x86
 
       - name: Zip Build file for Linux x86
-        run: zip server_linux_x86.zip server_linux_x86
+        run: zip server_linux_x86.zip build/server_linux_x86
 
       - name: Build for Windows x64
         run: GOOS=windows GOARCH=amd64 go build -o build/server_windows_x64.exe
 
       - name: Zip Build file for Windows x64
-        run: zip server_windows_x64.exe.zip server_windows_x64.exe
+        run: zip server_windows_x64.exe.zip build/server_windows_x64.exe
 
       - name: Build for Windows x86
         run: GOOS=windows GOARCH=386 go build -o build/server_windows_x86.exe
 
       - name: Zip Build file for Windows x86
-        run: zip server_windows_x86.exe.zip server_windows_x86.exe
+        run: zip server_windows_x86.exe.zip build/server_windows_x86.exe
 
       - name: release
         uses: Roang-zero1/github-upload-release-artifacts-action@master
