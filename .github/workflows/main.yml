@@ -204,9 +204,53 @@ jobs:
       - uses: geekyeggo/delete-artifact@v1
         with:
           name: Zipped Build for Windows x86
-      - name: Create GitHub Release
-        uses: Roang-zero1/github-upload-release-artifacts-action@master
-        with:
-          args: 'build/'
+     
+     - name: Upload Darwin Artifact
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/server_darwin_x64.zip
+          asset_name: server_darwin_x64.zip
+          asset_content_type: application/zip
+
+      - name: Upload Linux x64 Artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/server_linux_x64.zip
+          asset_name: server_linux_x64.zip
+          asset_content_type: application/zip
+
+      - name: Upload Linux x86 Artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/server_linux_x86.zip
+          asset_name: server_linux_x86.zip
+          asset_content_type: application/zip
+
+      - name: Upload Windows x64 Artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/server_windows_x64.exe.zip
+          asset_name: server_linux_x86.zip
+          asset_content_type: application/zip
+
+      - name: Upload Windows x86 Artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/server_windows_x86.exe.zip
+          asset_name: server_linux_x86.zip
+          asset_content_type: application/zip
