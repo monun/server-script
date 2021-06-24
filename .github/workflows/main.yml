@@ -204,8 +204,8 @@ jobs:
       - uses: geekyeggo/delete-artifact@v1
         with:
           name: Zipped Build for Windows x86
-     
-     - name: Upload Darwin Artifact
+
+      - name: Upload Darwin Artifact
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
