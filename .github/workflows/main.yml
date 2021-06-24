@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - name: [DEBUG] Check Directorys
+      - name: DEBUG check files
         run: ls -alh
 
       - name: Zip Build file for Darwin
