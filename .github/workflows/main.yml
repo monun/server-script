@@ -186,7 +186,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/server_windows_x64.exe.zip
-          asset_name: server_linux_x86.zip
+          asset_name: server_windows_x64.exe.zip
           asset_content_type: application/zip
 
       - name: Upload Windows x86 Artifact
@@ -196,5 +196,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/server_windows_x86.exe.zip
-          asset_name: server_linux_x86.zip
+          asset_name: server_windows_x86.exe.zip
           asset_content_type: application/zip
