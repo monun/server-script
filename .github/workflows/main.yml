@@ -41,19 +41,19 @@ jobs:
         run: ls -al . && ls -al build/
 
       - name: Zip Build file for Darwin
-        run: zip build/server_darwin_x64.zip build/server_darwin_x64
+        run: mv build/server_darwin_x64 ./server && zip server_darwin_x64.zip server && rm -rf server
 
       - name: Zip Build file for Linux x64
-        run: zip build/server_linux_x64.zip build/server_linux_x64
+        run: mv build/server_linux_x64 ./server && zip server_linux_x64.zip server && rm -rf server
 
       - name: Zip Build file for Linux x86
-        run: zip build/server_linux_x86.zip build/server_linux_x86
+        run: mv build/server_linux_x86 ./server && zip server_linux_x86.zip server && rm -rf server
 
       - name: Zip Build file for Windows x64
-        run: zip build/server_windows_x64.exe.zip build/server_windows_x64.exe
+        run: mv build/server_windows_x64 ./server.exe && zip server_windows_x64.exe.zip server.exe && rm -rf server.exe
 
       - name: Zip Build file for Windows x86
-        run: zip build/server_windows_x86.exe.zip build/server_windows_x86.exe
+        run: mv build/server_windows_x86 ./server.exe && zip server_windows_x86.exe.zip server.exe && rm -rf server.exe
 
       - name: Set Version
         run: echo "::set-output name=version::$(echo ${{ github.sha }} | cut -c -6)"
@@ -79,7 +79,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/server_darwin_x64.zip
+          asset_path: server_darwin_x64.zip
           asset_name: server_darwin_x64.zip
           asset_content_type: application/zip
 
@@ -89,7 +89,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/server_linux_x64.zip
+          asset_path: server_linux_x64.zip
           asset_name: server_linux_x64.zip
           asset_content_type: application/zip
 
@@ -99,7 +99,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/server_linux_x86.zip
+          asset_path: server_linux_x86.zip
           asset_name: server_linux_x86.zip
           asset_content_type: application/zip
 
@@ -109,7 +109,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/server_windows_x64.exe.zip
+          asset_path: server_windows_x64.exe.zip
           asset_name: server_windows_x64.exe.zip
           asset_content_type: application/zip
 
@@ -119,6 +119,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/server_windows_x86.exe.zip
+          asset_path: server_windows_x86.exe.zip
           asset_name: server_windows_x86.exe.zip
           asset_content_type: application/zip
