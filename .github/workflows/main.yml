@@ -41,6 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+      - name: [DEBUG] Check Directorys
+        run: ls -alh
       - name: Zip Build file for Darwin
         run: zip server_darwin_x64.zip build/server_darwin_x64
 
