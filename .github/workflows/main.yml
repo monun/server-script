@@ -131,7 +131,7 @@ jobs:
         id: version
 
       - name: Set Release Name
-        run: echo "::set-output name=release_name::$(echo 'Release ${{ github.sha }}' | cut -c -14)"
+        run: echo "::set-output name=release_name::$(printf "Release %s" "${{ steps.version.outputs.version }} | cut -c -14")"
         id: release_name
 
       - name: Set Changelog
