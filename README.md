@@ -15,10 +15,11 @@
 
 ### - server (기본 실행 방법)
 
-1. [Release 탭](https://github.com/monun/server-script/releases) 에서 자신의 환경에 맞는 파일을 다운로드
-2. 실행권한 부여 `chmod +x ./server`
-3. 실행 `./server` (현재 폴더에서 서버 실행됨)
-4. [선택] 서버 시작시 생성된 ./server.conf.json 파일을 필요대로 수정
+1. [Release 탭](https://github.com/monun/server-script/releases) 에서 자신의 환경에 맞는 파일을 다운로드. ex) `wget https://github.com/monun/server-script/releases/latest/download/server_linux_x64.zip`
+2. 압축 해재. ex) `unzip server_linux_x64.zip`
+3. 실행권한 부여. ex) `chmod +x ./server` (윈도우는 제외)
+4. 실행 `./server` (현재 폴더에서 서버 실행됨)
+5. [선택] 서버 시작시 생성된 ./server.conf.json 파일을 필요대로 수정
 
 ### - server (스크립트 수정 후 커스텀)
 
