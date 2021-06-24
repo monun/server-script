@@ -52,10 +52,19 @@ jobs:
       - name: Zip Build file for Windows x86
         run: zip server_windows_x86.exe.zip build/server_windows_x86.exe
 
-      - name: release
+  release:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@master
+      - name: Create Release
+        uses: Roang-zero1/github-create-release-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub Release
         uses: Roang-zero1/github-upload-release-artifacts-action@master
         with:
-          args: ./build/
+          args:
+            - build/
         env:
-          GITHUB_TOKEN: ${{secrets.TOKEN}}
-          release_body: Release
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
