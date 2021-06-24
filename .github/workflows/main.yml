@@ -124,7 +124,7 @@ jobs:
         run: zip build/server_windows_x64.exe.zip build/server_windows_x64.exe
 
       - name: Zip Build file for Windows x86
-        run: zip build/erver_windows_x86.exe.zip build/server_windows_x86.exe
+        run: zip build/server_windows_x86.exe.zip build/server_windows_x86.exe
 
       - uses: actions/upload-artifact@master
         with:
