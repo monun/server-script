@@ -30,5 +30,8 @@
    * `server=C:\\Users\monun\my.jar`
 4. 현재 디렉토리에서 자동으로 찾기
    * `server=.`
+## 문제해결
+* 다운로드한 server jar이 인식이 안돼요
+  * grep 에서 pearl 정규식을 사용 할 수 있어야 합니다. grep을 업데이트 해보세요(기준: grep 3.6)
 ## 다른 구현체들
 Go언어로 제작된 서버 실행기: [aroxu](https://github.com/aroxu/server-script)
