@@ -23,7 +23,7 @@
 5. [선택] 사전설정된 스크립트를 배포
 ## server.sh.conf의 server 설정 (서버로 사용할 jar파일)
 1. URL (웹에서 파일을 다운로드하여 `~/.minecraft/server/` 폴더에 저장 후 서버 시작)
-   * `server=https://papermc.io/api/v1/paper/1.16.5/latest/download`
+   * `server=https://papermc.io/api/v1/paper/1.7/latest/download`
 2. 로컬 경로
    * `server=/user/monun/my.jar`
    * `server=$HOME/.jar`
