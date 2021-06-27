@@ -34,7 +34,7 @@ plugins=(
 EOF
     for plugin in "${plugins[@]}"
     do
-        echo "  \"$plugin\"" >> $server_config
+        echo "  \"$plugin\""   >> $server_config
     done
     echo ")" >> $server_config
 fi
