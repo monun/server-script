@@ -2,8 +2,7 @@
 
 server='https://ci.codemc.io/job/Spottedleaf/job/Tuinity/lastSuccessfulBuild/artifact/tuinity-paperclip.jar'
 plugins=(
-    'https://github.com/monun/kotlin-plugin/releases/latest/download/Kotlin-1.5.10.jar'
-    'https://github.com/dmulloy2/ProtocolLib/releases/latest/download/ProtocolLib.jar'
+
 )
 
 script=$(basename "$0")
@@ -20,7 +19,6 @@ if [ ! -f "$server_folder/$server_script" ]; then
     wget -qc -P "$server_folder" -N 'https://raw.githubusercontent.com/monun/server-script/master/.server/server.sh'
   fi
 fi
-
 
 cd "$server_folder"
 

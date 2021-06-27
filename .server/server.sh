@@ -28,7 +28,7 @@ restart=true
 memory=16
 server=https://papermc.io/api/v1/paper/1.17/latest/download
 plugins=(
-    'https://github.com/monun/kotlin-plugin/releases/latest/download/Kotlin-1.5.10.jar'
+
 )
 EOT
 fi
