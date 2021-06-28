@@ -60,7 +60,14 @@ func runner() {
 		logger.Info("Download job is failed!")
 	}
 	runtimeArgs := prepareRuntime(jarRuntime{}, configContent)
-	utils.RunServer(append(append(runtimeArgs.arguments, "-jar"), runtimeArgs.serverFile))
+
+	customArgs := append(append(runtimeArgs.arguments, "-jar"), runtimeArgs.serverFile)
+
+	for _, customArg := range configContent.JarArgs {
+		customArgs = append(customArgs, customArg)
+	}
+
+	utils.RunServer(customArgs)
 
 	if configContent.Backup {
 		ctrlCValid := true
@@ -268,9 +275,6 @@ func prepareRuntime(runtime jarRuntime, config config.Config) jarRuntime {
 	}
 	for _, option := range utils.SelectOptionByMemory(config.Memory) {
 		runtime.arguments = append(runtime.arguments, option)
-	}
-	for _, customArg := range config.JarArgs {
-		runtime.arguments = append(runtime.arguments, customArg)
 	}
 
 	if config.Debug {
