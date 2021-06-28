@@ -58,7 +58,7 @@ func generateConfig() {
     "https://github.com/monun/kotlin-plugin/releases/latest/download/Kotlin-1.5.10.jar",
     "https://github.com/dmulloy2/ProtocolLib/releases/latest/download/ProtocolLib.jar"
   ],
-  "jarArgs": [""],
+  "jarArgs": [""]
 }`)
 
 	if errWrtConf != nil {
