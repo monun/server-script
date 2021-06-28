@@ -269,6 +269,9 @@ func prepareRuntime(runtime jarRuntime, config config.Config) jarRuntime {
 	for _, option := range utils.SelectOptionByMemory(config.Memory) {
 		runtime.arguments = append(runtime.arguments, option)
 	}
+	for _, customArg := range config.JarArgs {
+		runtime.arguments = append(runtime.arguments, customArg)
+	}
 
 	if config.Debug {
 		debugOption := "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address="
