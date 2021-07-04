@@ -107,7 +107,7 @@ func runner() {
 		ctrlCValid := true
 		done := make(chan bool, 1)
 
-		logger.Info("Server will restarts in 5 seconds. Press Ctrl+C to cancel")
+		logger.Info("Server will restart in 5 seconds. Press Ctrl+C to cancel")
 		fmt.Print("> ")
 		ctrlCKeyEvent := make(chan os.Signal, 1)
 		signal.Notify(ctrlCKeyEvent, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)

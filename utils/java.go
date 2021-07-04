@@ -26,11 +26,13 @@ func RunServer(arguments []string) {
 	logger.Info(fmt.Sprintf("Running server with %s", serverFile[len(serverFile)-1]))
 	interactiveExecutor("java", arguments)
 }
+// This function currently have some error on Arch Linux; I don't know this happens to other platforms, so you need to test it. (BaeHyeonWoo)
+// See this for more information: (https://cdn.discordapp.com/attachments/856807097575407620/860731457386053652/unknown.png)
 
 func SelectOptionByMemory(memory int) []string {
 	memoryOptions := []string{}
 	if memory >= 12 {
-		logger.Info("Use Aikar's Advanced memory options")
+		logger.Info("Using Aikar's Advanced memory options")
 		for _, option := range []string{
 			"-XX:G1NewSizePercent=40",
 			"-XX:G1MaxNewSizePercent=50",
@@ -41,7 +43,7 @@ func SelectOptionByMemory(memory int) []string {
 			memoryOptions = append(memoryOptions, option)
 		}
 	} else {
-		logger.Info("Use Aikar's standard memory options")
+		logger.Info("Using Aikar's standard memory options")
 		for _, option := range []string{
 			"-XX:G1NewSizePercent=30",
 			"-XX:G1MaxNewSizePercent=40",
