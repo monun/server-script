@@ -1,7 +1,7 @@
 #!/bin/bash
 
 download() {
-  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '[\/\.\-\w]+\.jar' | tail -1
+  wget -c --content-disposition -P "$2" -N "$1" 2>&1 | grep -Po '([A-Z]:)?[\/\.\-\w]+\.jar' | tail -1
 }
 
 # check java (https://stackoverflow.com/questions/7334754/correct-way-to-check-java-version-from-bash-script)
@@ -129,6 +129,7 @@ fi
 jvm_arguments+=(
   "-jar"
   "$jar"
+  "nogui"
 )
 
 while :
