@@ -50,7 +50,7 @@ if [ "$server" = "." ]; then
 elif [ -f "$server" ]; then
   jar=$server
 else
-  url_regex='(https?)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+  url_regex='((https?):\/\/)?([a-zA-Z])+(\.([a-zA-Z]+))+(\/.*)*?$'
   if [[ $server =~ $url_regex ]]; then
     jar_folder="$HOME/.minecraft/server/"
     mkdir -p "$jar_folder"
