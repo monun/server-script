@@ -2,7 +2,7 @@
 
 server='https://ci.codemc.io/job/Spottedleaf/job/Tuinity/lastSuccessfulBuild/artifact/tuinity-paperclip.jar'
 plugins=(
-
+'https://github.com/monun/auto-reloader/releases/latest/download/AutoReloader.jar'
 )
 
 script=$(basename "$0")
