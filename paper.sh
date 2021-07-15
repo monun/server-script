@@ -9,14 +9,14 @@ script=$(basename "$0")
 server_folder=".${script%.*}"
 mkdir -p "$server_folder"
 
-server_script="server.sh"
-server_config="server.sh.conf"
+server_script="start.sh"
+server_config="start.sh.conf"
 
 if [ ! -f "$server_folder/$server_script" ]; then
   if [ -f ".server/$server_script" ]; then
     cp ".server/$server_script" "$server_folder/$server_script"
   else
-    wget -qc -P "$server_folder" -N 'https://raw.githubusercontent.com/monun/server-script/master/.server/server.sh'
+    wget -qc -P "$server_folder" -N 'https://raw.githubusercontent.com/monun/server-script/master/.server/start.sh'
   fi
 fi
 
