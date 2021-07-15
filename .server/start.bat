@@ -1,0 +1,2 @@
+type nul > start
+exit
