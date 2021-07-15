@@ -1,7 +1,11 @@
 # 마인크래프트 서버 간단하게 구축하기
 
-간단하지만 환경은 간단하지 않습니다.
-윈도우 유저분들은 WSL을 사용하세요.
+윈도우 유저분들은 WSL혹은 mingw64를 통해 실행하세요.
+
+#### mingw64
+* git을 설치하면 `C:\Program Files\Git\mingw64` 경로에 자동으로 설치됩니다.
+* 환경변수 PATH에 `C:\Program Files\Git\mingw64\bin` 을 추가하세요.
+* [wget.exe](https://eternallybored.org/misc/wget/) 파일을 다운로드하여 mingw64 폴더에 넣어주세요.
 
 ### 환경
 * JAVA
