@@ -1,6 +1,6 @@
 #!/bin/bash
 
-server='https://papermc.io/api/v1/paper/1.17/latest/download'
+server='https://papermc.io/api/v1/paper/1.17.1/latest/download'
 plugins=(
 'https://github.com/monun/auto-reloader/releases/latest/download/AutoReloader.jar'
 )
