@@ -29,7 +29,8 @@ while :; do
 
   if [ ! -f "$script_config" ]; then
     cat <<EOT >"$script_config"
-server=https://papermc.io/api/v1/paper/1.17.1/latest/download
+version=1.17.1
+build=latest
 debug=false
 debug_port=5005
 backup=false
@@ -42,33 +43,27 @@ EOT
   source "$script_config"
 
   # Print configurations
-  echo "server = $server"
+  echo "version = $version"
+  echo "build = $build"
   echo "debug = $debug"
   echo "backup = $backup"
   echo "force_restart = $force_restart"
   echo "memory = ${memory}G"
 
-  mkdir -p "./plugins"
+  # Download paper-api
+  mkdir -p ".paper-api"
+  api=$(download "https://github.com/monun/paper-api/releases/latest/download/paper-api.jar" ".paper-api")
+  server=$(java -jar "$api" -r download -v "$version" -b "$build")
+  echo "server = $server"
 
-  if [ "$server" = "." ]; then
-    jar=$(ls -dt ./*.jar | head -1)
-  elif [ -f "$server" ]; then
-    jar=$server
-  else
-    url_regex='(https?)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-    if [[ $server =~ $url_regex ]]; then
-      jar_folder="$HOME/.minecraft/server/"
-      mkdir -p "$jar_folder"
-      jar=$(download "$server" "$jar_folder")
-    else
-      echo "Not found server jar"
-      exit
-    fi
-  fi
+  jar_folder="$HOME/.minecraft/server/"
+  mkdir -p "$jar_folder"
+  jar=$(download "$server" "$jar_folder")
 
   echo "jar = $jar"
 
   # Download plugins
+  mkdir -p "./plugins"
   for i in "${plugins[@]}"; do
     download_result=$(download "$i" "./plugins")
     echo "$download_result <- $i"
