@@ -53,7 +53,7 @@ EOT
   # Download paper-api
   mkdir -p ".paper-api"
   api=$(download "https://github.com/monun/paper-api/releases/latest/download/paper-api.jar" ".paper-api")
-  server=$(java -jar "$api" -r download -v "$version" -b "$build")
+  server=$("$_java" -jar "$api" -r download -v "$version" -b "$build")
   echo "server = $server"
 
   jar_folder="$HOME/.minecraft/server/"
@@ -112,7 +112,7 @@ EOT
   if [[ $debug == true ]]; then
     port_arguments="$debug_port"
 
-    java_version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+    java_version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
     java_version_9="9"
 
     if [ "$(printf '%s\n' "$java_version" "$java_version_9" | sort -V | head -n1)" = "$java_version_9" ]; then
