@@ -48,8 +48,6 @@ EOT
   echo "force_restart = $force_restart"
   echo "memory = ${memory}G"
 
-  mkdir -p "./plugins"
-
   if [ "$server" = "." ]; then
     jar=$(ls -dt ./*.jar | head -1)
   elif [ -f "$server" ]; then
@@ -67,6 +65,8 @@ EOT
   fi
 
   echo "jar = $jar"
+
+  mkdir -p "./plugins"
 
   # Download plugins
   for i in "${plugins[@]}"; do
