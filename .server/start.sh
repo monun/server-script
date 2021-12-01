@@ -29,7 +29,7 @@ while :; do
 
   if [ ! -f "$script_config" ]; then
     cat <<EOT >"$script_config"
-server=https://papermc.io/api/v1/paper/1.17.1/latest/download
+server=https://clip.aroxu.me/download?mc_version=1.18
 debug=false
 debug_port=5005
 backup=false

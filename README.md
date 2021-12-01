@@ -37,7 +37,8 @@
 ## start.sh.conf의 server 설정 (서버로 사용할 jar파일)
 
 1. URL (웹에서 파일을 다운로드하여 `~/.minecraft/server/` 폴더에 저장 후 서버 시작)
-    * `server=https://papermc.io/api/v1/paper/1.17/latest/download`
+    * `server=https://papermc.io/api/v2/projects/<project>/versions/<version>/builds/<build>/downloads/<downloads>`
+        - 변경된 Paper API v2는 다음 링크를 참고하세요: [https://papermc.io/api](https://papermc.io/api)
 2. 로컬 경로
     * `server=/user/monun/my.jar`
     * `server=$HOME/.jar`
